@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arun Sarvesh R — AI Web Developer &amp; Full-Stack Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#090b14;
+    --bg-soft:#0d1020;
+    --surface:#121629;
+    --surface-2:#161b33;
+    --border:rgba(140,130,255,0.14);
+    --border-bright:rgba(140,130,255,0.4);
+    --text:#e8eaf6;
+    --text-dim:#8b90b0;
+    --text-faint:#565c7d;
+    --accent:#7c6bff;
+    --accent-2:#3fd7ff;
+    --btn-text:#060613;
+    --hero-a:#ffffff; --hero-b:var(--accent-2); --hero-c:var(--accent);
+    --particle-rgb:140,130,255;
+    --grad: linear-gradient(120deg,var(--accent-2),var(--accent));
+    --linkedin: #0a66c2;
+    --mono: 'JetBrains Mono', monospace;
+    --disp: 'Clash Display', 'Space Grotesk', sans-serif;
+    --body: 'General Sans', 'Inter', sans-serif;
+  }
+  html[data-theme="light"]{
+    --bg:#faf8f3;
+    --bg-soft:#f1ede3;
+    --surface:#ffffff;
+    --surface-2:#f6f2e9;
+    --border:rgba(30,25,60,0.09);
+    --border-bright:rgba(91,75,219,0.4);
+    --text:#14151f;
+    --text-dim:#4a4e63;
+    --text-faint:#8b8fa6;
+    --accent:#5b4bdb;
+    --accent-2:#0284c7;
+    --btn-text:#ffffff;
+    --hero-a:#14151f; --hero-b:var(--accent); --hero-c:var(--accent-2);
+    --particle-rgb:91,75,219;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--body);
+    line-height:1.6;
+    overflow-x:hidden;
+    transition:background .4s ease, color .4s ease;
+  }
+  a{color:inherit; text-decoration:none;}
+  ::selection{background:var(--accent); color:#fff;}
+  button{font-family:inherit;}
+
+  #particles{position:fixed; inset:0; z-index:0; pointer-events:none;}
+  .grid-bg{
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size:64px 64px;
+    mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, black 10%, transparent 75%);
+    opacity:0.5;
+  }
+
+  section{position:relative; z-index:1; padding:120px 8vw;}
+  @media (max-width:768px){ section{padding:80px 6vw;} }
+
+  .eyebrow{
+    font-family:var(--mono); font-size:0.78rem; letter-spacing:0.18em;
+    text-transform:uppercase; color:var(--accent-2); margin-bottom:14px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{content:''; width:22px; height:1px; background:var(--accent-2);}
+
+  h1,h2,h3{font-family:var(--disp); font-weight:600; letter-spacing:-0.02em;}
+
+  /* NAV */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:20px 8vw; backdrop-filter:blur(10px);
+    background:rgba(9,11,20,0.5); border-bottom:1px solid var(--border);
+    transition:background .4s ease, border-color .4s ease;
+  }
+  html[data-theme="light"] nav{ background:rgba(250,248,243,0.65); }
+  .logo{font-family:var(--mono); font-weight:500; font-size:0.95rem; color:var(--text);}
+  .logo span{color:var(--accent-2);}
+  .nav-right{display:flex; align-items:center; gap:32px;}
+  .nav-links{display:flex; gap:32px; font-size:0.88rem; color:var(--text-dim);}
+  .nav-links a:hover{color:var(--accent-2);}
+  @media (max-width:768px){ .nav-links{display:none;} }
+
+  /* theme toggle */
+  .theme-toggle{
+    width:52px; height:28px; border-radius:20px; border:1px solid var(--border-bright);
+    background:var(--surface); position:relative; cursor:pointer; flex-shrink:0;
+    transition:background .3s ease;
+  }
+  .theme-toggle .knob{
+    position:absolute; top:2px; left:2px; width:22px; height:22px; border-radius:50%;
+    background:var(--grad); transition:transform .3s cubic-bezier(.4,0,.2,1);
+    display:flex; align-items:center; justify-content:center; font-size:11px;
+  }
+  html[data-theme="light"] .theme-toggle .knob{ transform:translateX(24px); }
+
+  /* HERO */
+  .hero{
+    min-height:100vh; display:flex; flex-direction:column; justify-content:center;
+    padding-top:120px;
+  }
+  .hero h1{
+    font-size:clamp(2.8rem, 8vw, 6.4rem); line-height:0.96; margin-bottom:20px;
+    background:linear-gradient(100deg,var(--hero-a) 30%, var(--hero-b) 70%, var(--hero-c) 100%);
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+  }
+  .hero-sub{font-size:clamp(1rem,2.2vw,1.35rem); color:var(--text-dim); max-width:640px; margin-bottom:8px;}
+  .hero-tagline{
+    font-family:var(--mono); font-size:1.05rem; color:var(--text); margin:28px 0 44px;
+    border-left:2px solid var(--accent); padding-left:16px; min-height:1.6em;
+  }
+  .cursor{display:inline-block; width:8px; height:1.1em; background:var(--accent-2); margin-left:2px; vertical-align:middle; animation:blink 1s step-end infinite;}
+  @keyframes blink{50%{opacity:0;}}
+
+  .btn-row{display:flex; gap:18px; flex-wrap:wrap; align-items:center;}
+  .btn{
+    font-family:var(--mono); font-size:0.85rem; letter-spacing:0.03em;
+    padding:15px 30px; border-radius:2px; cursor:pointer; border:1px solid transparent;
+    transition:all .25s ease; display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn-primary{background:var(--grad); color:var(--btn-text); font-weight:600;}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 10px 30px -8px rgba(124,107,255,0.6);}
+  .btn-outline{border-color:var(--border-bright); color:var(--text);}
+  .btn-outline:hover{border-color:var(--accent-2); color:var(--accent-2); background:rgba(63,215,255,0.06);}
+  
+  .btn-icon{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:52px; height:52px; border-radius:50%; border:1px solid var(--border-bright);
+    color:var(--text); transition:all .25s ease; cursor:pointer; background:transparent;
+  }
+  .linkedin-icon:hover{
+    background:#0a66c2; border-color:#0a66c2; color:#fff;
+    transform:translateY(-2px); box-shadow:0 10px 30px -8px rgba(10,102,194,0.6);
+  }
+
+  .reveal{opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ABOUT */
+  .about-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:70px; align-items:start;}
+  @media (max-width:850px){ .about-grid{grid-template-columns:1fr; gap:40px;} }
+  .about-bio{font-size:1.15rem; color:var(--text-dim); max-width:56ch;}
+  .about-bio strong{color:var(--text); font-weight:600;}
+  .specs{
+    font-family:var(--mono); font-size:0.88rem; border:1px solid var(--border);
+    background:var(--surface); border-radius:6px; overflow:hidden;
+  }
+  .spec-row{display:flex; justify-content:space-between; padding:16px 20px; border-bottom:1px solid var(--border);}
+  .spec-row:last-child{border-bottom:none;}
+  .spec-label{color:var(--text-faint);}
+  .spec-val{color:var(--text); text-align:right;}
+
+  /* SKILLS */
+  .filter-row{display:flex; gap:10px; flex-wrap:wrap; margin-top:36px; margin-bottom:6px;}
+  .filter-btn{
+    font-family:var(--mono); font-size:0.78rem; padding:9px 16px; border-radius:20px;
+    border:1px solid var(--border); background:var(--surface); color:var(--text-dim);
+    cursor:pointer; transition:all .2s ease;
+  }
+  .filter-btn:hover{border-color:var(--accent-2); color:var(--text);}
+  .filter-btn.active{background:var(--grad); color:var(--btn-text); border-color:transparent; font-weight:600;}
+
+  .skills-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:2px; background:var(--border); border:1px solid var(--border); margin-top:24px;}
+  @media (max-width:900px){ .skills-grid{grid-template-columns:repeat(2,1fr);} }
+  .skill-col{background:var(--bg-soft); padding:30px 24px; transition:opacity .35s ease, transform .35s ease, filter .35s ease;}
+  .skill-col.dim{opacity:0.28; filter:saturate(0.25); transform:scale(0.98);}
+  .skill-col h3{font-size:0.95rem; color:var(--accent-2); font-family:var(--mono); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:20px; font-weight:500;}
+  .tile{
+    display:inline-block; margin:0 8px 10px 0; padding:8px 14px; font-size:0.86rem;
+    border:1px solid var(--border); border-radius:20px; color:var(--text-dim);
+    transition:all .2s ease; cursor:default;
+  }
+  .tile:hover{border-color:var(--accent-2); color:var(--text); box-shadow:0 0 16px -4px rgba(63,215,255,0.5); transform:translateY(-2px);}
+
+  /* PROJECTS */
+  .projects-wrap{display:flex; flex-direction:column; gap:22px; margin-top:50px;}
+  .pcard{
+    border:1px solid var(--border); background:var(--surface); border-radius:8px;
+    padding:32px 36px; position:relative; overflow:hidden; transition:border-color .3s ease, background .3s ease;
+  }
+  .pcard::before{
+    content:''; position:absolute; top:0; left:0; width:3px; height:100%;
+    background:var(--grad); transform:scaleY(0); transform-origin:top; transition:transform .35s ease;
+  }
+  .pcard:hover{border-color:var(--border-bright); background:var(--surface-2);}
+  .pcard:hover::before{transform:scaleY(1);}
+  .pcard-top{display:flex; justify-content:space-between; align-items:flex-start; gap:20px; flex-wrap:wrap;}
+  .pcard h3{font-size:1.35rem; margin-bottom:6px;}
+  .pcard-num{font-family:var(--mono); color:var(--text-faint); font-size:0.85rem;}
+  .badge{
+    font-family:var(--mono); font-size:0.72rem; letter-spacing:0.04em; color:#0b0c17;
+    background:var(--accent-2); padding:6px 12px; border-radius:20px; white-space:nowrap; font-weight:500;
+  }
+  .pcard p{color:var(--text-dim); margin-top:14px; max-width:70ch; font-size:0.98rem;}
+
+  /* TIMELINE */
+  .timeline{margin-top:56px; position:relative; padding-left:28px;}
+  .timeline::before{content:''; position:absolute; left:5px; top:6px; bottom:6px; width:1px; background:var(--border-bright);}
+  .t-item{position:relative; padding-bottom:44px;}
+  .t-item:last-child{padding-bottom:0;}
+  .t-dot{position:absolute; left:-28px; top:4px; width:11px; height:11px; border-radius:50%; background:var(--bg); border:2px solid var(--accent-2);}
+  .t-date{font-family:var(--mono); font-size:0.78rem; color:var(--accent-2); letter-spacing:0.04em;}
+  .t-title{font-size:1.08rem; margin:6px 0 4px; font-weight:600; font-family:var(--disp);}
+  .t-desc{color:var(--text-dim); font-size:0.92rem;}
+
+  /* CONTACT */
+  .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:70px; margin-top:50px;}
+  @media (max-width:850px){ .contact-grid{grid-template-columns:1fr; gap:40px;} }
+  .field{margin-bottom:20px;}
+  .field label{display:block; font-family:var(--mono); font-size:0.78rem; color:var(--text-faint); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.05em;}
+  .field input, .field textarea{
+    width:100%; background:var(--surface); border:1px solid var(--border); color:var(--text);
+    padding:14px 16px; border-radius:4px; font-family:var(--body); font-size:0.95rem; outline:none;
+    transition:border-color .2s ease;
+  }
+  .field input:focus, .field textarea:focus{border-color:var(--accent-2);}
+  .field textarea{resize:vertical; min-height:120px;}
+  .form-note{font-family:var(--mono); font-size:0.82rem; color:var(--accent-2); margin-top:12px; min-height:1.2em;}
+
+  .contact-links{display:flex; flex-direction:column; gap:14px;}
+  .clink{
+    display:flex; align-items:center; gap:16px; padding:16px 20px; border:1px solid var(--border);
+    border-radius:6px; background:var(--surface); transition:all .2s ease;
+  }
+  .clink:hover{border-color:var(--accent-2); background:var(--surface-2); transform:translateX(4px);}
+  .clink svg{flex-shrink:0; color:var(--accent-2);}
+  .clink-label{font-family:var(--mono); font-size:0.72rem; color:var(--text-faint); text-transform:uppercase;}
+  .clink-val{font-size:0.95rem; color:var(--text);}
+  
+  .linkedin-clink:hover{border-color:#0a66c2;}
+  .linkedin-clink svg{color:#0a66c2;}
+
+  footer{
+    text-align:center; padding:40px 8vw; color:var(--text-faint); font-family:var(--mono);
+    font-size:0.8rem; border-top:1px solid var(--border); position:relative; z-index:1;
+  }
+
+  /* CHATBOT WIDGET */
+  .chat-launcher{
+    position:fixed; bottom:26px; right:26px; z-index:100; width:58px; height:58px; border-radius:50%;
+    background:var(--grad); display:flex; align-items:center; justify-content:center; cursor:pointer;
+    box-shadow:0 10px 30px -6px rgba(124,107,255,0.55); transition:transform .25s ease;
+  }
+  .chat-launcher:hover{transform:scale(1.08);}
+  .chat-launcher svg{color:var(--btn-text);}
+  .chat-ping{
+    position:absolute; top:-2px; right:-2px; width:14px; height:14px; border-radius:50%;
+    background:var(--accent-2); border:2px solid var(--bg); animation:pulse 2s infinite;
+  }
+  @keyframes pulse{0%,100%{transform:scale(1);} 50%{transform:scale(1.25);}}
+
+  .chat-panel{
+    position:fixed; bottom:98px; right:26px; z-index:100; width:340px; max-width:calc(100vw - 40px);
+    height:460px; max-height:calc(100vh - 140px); background:var(--surface); border:1px solid var(--border-bright);
+    border-radius:14px; display:flex; flex-direction:column; overflow:hidden;
+    box-shadow:0 24px 60px -12px rgba(0,0,0,0.5); opacity:0; transform:translateY(16px) scale(0.98);
+    pointer-events:none; transition:opacity .25s ease, transform .25s ease;
+  }
+  .chat-panel.open{opacity:1; transform:translateY(0) scale(1); pointer-events:auto;}
+  .chat-head{
+    padding:16px 18px; background:var(--grad); display:flex; justify-content:space-between; align-items:center;
+  }
+  .chat-name{font-family:var(--disp); font-weight:600; color:var(--btn-text); font-size:1rem;}
+  .chat-sub{font-family:var(--mono); font-size:0.68rem; color:var(--btn-text); opacity:0.85;}
+  .chat-close{background:none; border:none; color:var(--btn-text); font-size:1.3rem; cursor:pointer; line-height:1;}
+  .chat-body{flex:1; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:10px;}
+  .msg{max-width:85%; padding:10px 14px; border-radius:12px; font-size:0.88rem; line-height:1.5;}
+  .msg.bot{background:var(--bg-soft); border:1px solid var(--border); align-self:flex-start; border-bottom-left-radius:2px;}
+  .msg.user{background:var(--grad); color:var(--btn-text); align-self:flex-end; border-bottom-right-radius:2px;}
+  .chat-quick{display:flex; gap:8px; flex-wrap:wrap; padding:0 16px 12px;}
+  .chat-quick button{
+    font-family:var(--mono); font-size:0.7rem; padding:6px 10px; border-radius:14px;
+    border:1px solid var(--border); background:var(--bg-soft); color:var(--text-dim); cursor:pointer;
+    transition:all .2s ease;
+  }
+  .chat-quick button:hover{border-color:var(--accent-2); color:var(--text);}
+  .chat-input-row{display:flex; border-top:1px solid var(--border); padding:10px;}
+  .chat-input-row input{
+    flex:1; background:var(--bg-soft); border:1px solid var(--border); color:var(--text);
+    padding:10px 12px; border-radius:8px; font-family:var(--body); font-size:0.85rem; outline:none;
+  }
+  .chat-input-row input:focus{border-color:var(--accent-2);}
+  .chat-input-row button{
+    margin-left:8px; width:38px; border-radius:8px; border:none; background:var(--grad); color:var(--btn-text);
+    cursor:pointer; font-size:1rem;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+<div class="grid-bg"></div>
+
+<nav>
+  <div class="logo">arun<span>.</span>dev</div>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#credentials">Credentials</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="theme-toggle" id="themeToggle" role="button" aria-label="Toggle light and dark theme">
+      <div class="knob">◐</div>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  
+  <h1>Arun Sarvesh R</h1>
+  <p class="hero-sub">AI Web Developer · Full-Stack Engineer · Builder of Intelligent Systems</p>
+  <p class="hero-tagline" id="typed"></p>
+  <div class="btn-row">
+    <a href="#projects" class="btn btn-primary">View Projects →</a>
+    <a href="#contact" class="btn btn-outline">Let's Talk</a>
+    <a href="https://www.linkedin.com/in/arun-sarvesh-r-34252a373" target="_blank" rel="noopener" class="btn-icon linkedin-icon" aria-label="Connect on LinkedIn">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5a2 2 0 11-4-.02 2 2 0 014 .02zM7 8.48H3V21h4zM13.5 8.48h-3.83V21h3.83v-6.44c0-3.59 4.66-3.9 4.66 0V21H22v-7.4c0-6.11-6.79-5.89-8.5-2.88z"/></svg>
+    </a>
+  </div>
+</section>
+
+<section id="about">
+  <div class="reveal">
+    <div class="eyebrow">About</div>
+    <div class="about-grid">
+      <p class="about-bio">
+        Driven by a deep curiosity for intelligent systems, I engineer web applications that go beyond static logic. Bridging robust <strong>full-stack architecture</strong> with cutting-edge <strong>Artificial Intelligence</strong>, I transform complex algorithmic challenges into scalable, real-world solutions. Whether it's training computer vision models or structuring databases, I build with precision and a relentless desire to discover what technology can solve next.
+      </p>
+      <div class="specs">
+        <div class="spec-row"><span class="spec-label">Location</span><span class="spec-val">Trichy, Tamil Nadu, India</span></div>
+        <div class="spec-row"><span class="spec-label">Education</span><span class="spec-val">B.E. CSE, K. Ramakrishnan<br>College of Engineering (2024–2028)</span></div>
+        <div class="spec-row"><span class="spec-label">CGPA</span><span class="spec-val">8.04</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="reveal">
+    <div class="eyebrow">Skills</div>
+    <h2 style="font-size:clamp(1.8rem,4vw,2.6rem);">What I work with</h2>
+
+    <div class="filter-row" id="filterRow">
+      <button class="filter-btn active" data-cat="all">All</button>
+      <button class="filter-btn" data-cat="frontend">Languages &amp; Frontend</button>
+      <button class="filter-btn" data-cat="backend">Backend &amp; Databases</button>
+      <button class="filter-btn" data-cat="ai">AI &amp; Computer Vision</button>
+      <button class="filter-btn" data-cat="tools">Tools</button>
+    </div>
+
+    <div class="skills-grid" id="skillsGrid">
+      <div class="skill-col" data-cat="frontend">
+        <h3>Languages &amp; Frontend</h3>
+        <div class="tile">Python</div><div class="tile">Java</div><div class="tile">SQL</div>
+        <div class="tile">HTML</div><div class="tile">CSS</div><div class="tile">Responsive Design</div>
+        <div class="tile">UI/UX Development</div>
+      </div>
+      <div class="skill-col" data-cat="backend">
+        <h3>Backend &amp; Databases</h3>
+        <div class="tile">Python Architecture</div><div class="tile">OTP Authentication</div>
+        <div class="tile">Database Design</div><div class="tile">MySQL</div>
+      </div>
+      <div class="skill-col" data-cat="ai">
+        <h3>AI &amp; Computer Vision</h3>
+        <div class="tile">Gemini API</div><div class="tile">YOLOv8</div>
+        <div class="tile">Computer Vision</div><div class="tile">Prompt Engineering</div>
+        <div class="tile">AI Integration</div>
+      </div>
+      <div class="skill-col" data-cat="tools">
+        <h3>Tools</h3>
+        <div class="tile">GitHub</div><div class="tile">VS Code</div><div class="tile">MySQL Workbench</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="reveal">
+    <div class="eyebrow">Projects</div>
+    <h2 style="font-size:clamp(1.8rem,4vw,2.6rem);">Things I've shipped</h2>
+    <div class="projects-wrap">
+
+      <div class="pcard">
+        <div class="pcard-top">
+          <div>
+            <div class="pcard-num">01</div>
+            <h3>Smart Blind Assistance System</h3>
+          </div>
+          <span class="badge">2nd Place — AKKADIANZ'26 National Symposium</span>
+        </div>
+        <p>AI-powered navigation aid built on YOLOv8 with 94% detection accuracy. A multithreaded Python application delivering directional stereo audio cues and false-alert filtering.</p>
+      </div>
+
+      <div class="pcard">
+        <div class="pcard-top">
+          <div>
+            <div class="pcard-num">02</div>
+            <h3>AI-Integrated Task Management System</h3>
+          </div>
+        </div>
+        <p>Full-stack desktop app integrating Google Gemini AI for task prioritization and automation. Features OTP authentication, a MySQL backend, and a responsive light/dark UI.</p>
+      </div>
+
+      <div class="pcard">
+        <div class="pcard-top">
+          <div>
+            <div class="pcard-num">03</div>
+            <h3>Python Developer Internship — CodeAlpha</h3>
+          </div>
+          <span class="badge">Jan – Feb 2026</span>
+        </div>
+        <p>Shipped a real-time Stock Portfolio Tracker with live market data and built a rule-based chatbot handling 15+ query types.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="credentials">
+  <div class="reveal">
+    <div class="eyebrow">Credentials</div>
+    <h2 style="font-size:clamp(1.8rem,4vw,2.6rem);">Timeline</h2>
+    <div class="timeline">
+      <div class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-date">2024 — 2028</div>
+        <div class="t-title">B.E. Computer Science &amp; Engineering</div>
+        <div class="t-desc">K. Ramakrishnan College of Engineering · CGPA 8.04</div>
+      </div>
+      <div class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-date">NPTEL Elite Certification</div>
+        <div class="t-title">Cloud Computing Fundamentals</div>
+        <div class="t-desc">IIT Kharagpur</div>
+      </div>
+      <div class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-date">HackerRank</div>
+        <div class="t-title">Python Programming Certification</div>
+        <div class="t-desc">Global Rank 2483</div>
+      </div>
+      <div class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-date">Jan — Feb 2026</div>
+        <div class="t-title">Python Developer Internship</div>
+        <div class="t-desc">CodeAlpha</div>
+      </div>
+      <div class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-date">AKKADIANZ'26 National Symposium</div>
+        <div class="t-title">2nd Place — Smart Blind Assistance System</div>
+        <div class="t-desc">National-level technical symposium</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="reveal">
+    <div class="eyebrow">Contact</div>
+    <h2 style="font-size:clamp(1.8rem,4vw,2.6rem);">Let's build something intelligent together.</h2>
+    <div class="contact-grid">
+      <form id="contactForm">
+        <div class="field">
+          <label for="name">Name</label>
+          <input type="text" id="name" required>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" required>
+        </div>
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="border:none; width:100%; justify-content:center;">Send Message</button>
+        <div class="form-note" id="formNote"></div>
+      </form>
+
+      <div class="contact-links">
+        <a class="clink" href="mailto:iamarunsarvesh@gmail.com">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M4 4l8 8 8-8"/></svg>
+          <div><div class="clink-label">Email</div><div class="clink-val">iamarunsarvesh@gmail.com</div></div>
+        </a>
+        <a class="clink" href="tel:+918667794520">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5c0 9 7 16 16 16l3-3-5-5-2 2c-3-1-6-4-7-7l2-2-5-5-2 2z"/></svg>
+          <div><div class="clink-label">Phone</div><div class="clink-val">+91 86677 94520</div></div>
+        </a>
+        <a class="clink linkedin-clink" href="https://www.linkedin.com/in/arun-sarvesh-r-34252a373" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5a2 2 0 11-4-.02 2 2 0 014 .02zM7 8.48H3V21h4zM13.5 8.48h-3.83V21h3.83v-6.44c0-3.59 4.66-3.9 4.66 0V21H22v-7.4c0-6.11-6.79-5.89-8.5-2.88z"/></svg>
+          <div><div class="clink-label">LinkedIn</div><div class="clink-val">arun-sarvesh-r-34252a373</div></div>
+        </a>
+        <a class="clink" href="https://github.com/iamarunsarvesh12" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-3.16 19.5c.5.1.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.46-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.36 1.09 2.93.83.1-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.1.39-1.99 1.03-2.69-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 015 0c1.91-1.3 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.6 1.03 2.69 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.75c0 .27.18.58.69.48A10 10 0 0012 2z"/></svg>
+          <div><div class="clink-label">GitHub</div><div class="clink-val">iamarunsarvesh12</div></div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Arun Sarvesh R — Built with code and curiosity.</footer>
+
+<!-- Chatbot Widget -->
+<div class="chat-launcher" id="chatLauncher" aria-label="Open chat">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H8l-5 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+  <span class="chat-ping"></span>
+</div>
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-head">
+    <div>
+      <div class="chat-name">Nova</div>
+      <div class="chat-sub">Arun's AI Portfolio Assistant</div>
+    </div>
+    <button class="chat-close" id="chatClose">×</button>
+  </div>
+  <div class="chat-body" id="chatBody"></div>
+  <div class="chat-quick" id="chatQuick">
+    <button data-q="projects">Projects</button>
+    <button data-q="stack">Tech stack</button>
+    <button data-q="education">Education</button>
+    <button data-q="linkedin">LinkedIn</button>
+  </div>
+  <form class="chat-input-row" id="chatForm">
+    <input type="text" id="chatInput" placeholder="Ask me about Arun's profile..." autocomplete="off">
+    <button type="submit">↑</button>
+  </form>
+</div>
+
+<script>
+  /* ---------- Theme toggle ---------- */
+  const root = document.documentElement;
+  const themeToggle = document.getElementById('themeToggle');
+  themeToggle.addEventListener('click', ()=>{
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    themeToggle.querySelector('.knob').textContent = next === 'dark' ? '◐' : '◑';
+    drawParticleColors();
+  });
+
+  /* ---------- Typing effect ---------- */
+  const typedEl = document.getElementById('typed');
+  const fullText = "I build things that think.";
+  let ti = 0;
+  function type(){
+    if(ti <= fullText.length){
+      typedEl.innerHTML = fullText.slice(0,ti) + '<span class="cursor"></span>';
+      ti++;
+      setTimeout(type, 55);
+    } else {
+      typedEl.innerHTML = fullText + '<span class="cursor"></span>';
+    }
+  }
+  type();
+
+  /* ---------- Scroll reveal ---------- */
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:0.12});
+  reveals.forEach(r=>io.observe(r));
+
+  /* ---------- Skills filter ---------- */
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const skillCols = document.querySelectorAll('.skill-col');
+  filterBtns.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      filterBtns.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const cat = btn.dataset.cat;
+      skillCols.forEach(col=>{
+        if(cat === 'all' || col.dataset.cat === cat){ col.classList.remove('dim'); }
+        else{ col.classList.add('dim'); }
+      });
+    });
+  });
+
+  /* ---------- Contact form (no backend — inline confirmation) ---------- */
+  const contactForm = document.getElementById('contactForm');
+  const formNote = document.getElementById('formNote');
+  contactForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    const name = document.getElementById('name').value || 'there';
+    formNote.textContent = `Thanks, ${name} — got it. I'll get back to you within 24h.`;
+    contactForm.reset();
+  });
+
+  /* ---------- Particle canvas ---------- */
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const mouse = {x:null, y:null};
+
+  function resize(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const count = Math.min(70, Math.floor((canvas.width * canvas.height) / 16000));
+    particles = Array.from({length:count}, ()=>({
+      x: Math.random()*canvas.width,
+      y: Math.random()*canvas.height,
+      vx: (Math.random()-0.5)*0.25,
+      vy: (Math.random()-0.5)*0.25,
+      r: Math.random()*1.6 + 0.6
+    }));
+  }
+  function drawParticleColors(){ /* color read live from CSS var on each frame */ }
+
+  function getParticleRGB(){
+    return getComputedStyle(root).getPropertyValue('--particle-rgb').trim() || '140,130,255';
+  }
+
+  function tick(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    const rgb = getParticleRGB();
+    particles.forEach(p=>{
+      p.x += p.vx; p.y += p.vy;
+      if(p.x < 0 || p.x > canvas.width) p.vx *= -1;
+      if(p.y < 0 || p.y > canvas.height) p.vy *= -1;
+      if(mouse.x !== null){
+        const dx = p.x - mouse.x, dy = p.y - mouse.y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if(dist < 110){ p.x += dx/dist*0.6; p.y += dy/dist*0.6; }
+      }
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(${rgb},0.55)`;
+      ctx.fill();
+    });
+    for(let i=0;i<particles.length;i++){
+      for(let j=i+1;j<particles.length;j++){
+        const dx = particles[i].x - particles[j].x, dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if(dist < 130){
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(${rgb},${0.12 * (1 - dist/130)})`;
+          ctx.lineWidth = 1;
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+    if(!reduceMotion) requestAnimationFrame(tick);
+  }
+  window.addEventListener('resize', resize);
+  window.addEventListener('mousemove', (e)=>{ mouse.x = e.clientX; mouse.y = e.clientY; });
+  window.addEventListener('mouseleave', ()=>{ mouse.x = null; mouse.y = null; });
+  resize();
+  tick();
+  if(reduceMotion){ setInterval(tick, 4000); } // occasional static redraw only
+
+  /* ---------- Chatbot (Expanded comprehensive knowledge base) ---------- */
+  const chatLauncher = document.getElementById('chatLauncher');
+  const chatPanel = document.getElementById('chatPanel');
+  const chatClose = document.getElementById('chatClose');
+  const chatBody = document.getElementById('chatBody');
+  const chatForm = document.getElementById('chatForm');
+  const chatInput = document.getElementById('chatInput');
+  const chatQuick = document.getElementById('chatQuick');
+
+  function addMsg(text, from){
+    const div = document.createElement('div');
+    div.className = 'msg ' + from;
+    div.innerHTML = text; // allowing basic html like links
+    chatBody.appendChild(div);
+    chatBody.scrollTop = chatBody.scrollHeight;
+  }
+
+  let greeted = false;
+  chatLauncher.addEventListener('click', ()=>{
+    chatPanel.classList.toggle('open');
+    if(!greeted){
+      greeted = true;
+      setTimeout(()=> addMsg("Hey! I'm Nova. You can ask me anything about Arun's projects, tech stack, education, credentials, or how to connect with him on LinkedIn. 🤖", 'bot'), 300);
+    }
+  });
+  chatClose.addEventListener('click', ()=> chatPanel.classList.remove('open'));
+
+  function respond(raw){
+    const t = raw.toLowerCase();
+    
+    // Project Specifics
+    if(/blind|yolo|vision|navigat/.test(t))
+      return "The Smart Blind Assistance System is his standout project — YOLOv8-powered, 94% detection accuracy, delivering stereo audio cues to guide users around obstacles. It secured 2nd place at AKKADIANZ'26. 🥈";
+    if(/task|gemini|manage/.test(t))
+      return "The AI-Integrated Task Management System is a full-stack desktop app utilizing Google Gemini for intelligent prioritization. It features OTP login, a MySQL backend, and a clean light/dark UI.";
+    if(/codealpha|stock|internship/.test(t))
+      return "During his CodeAlpha internship (Jan-Feb 2026), he shipped a real-time Stock Portfolio Tracker and built a rule-based chatbot capable of handling 15+ query types.";
+    if(/project/.test(t))
+      return "Arun has three main projects highlighted: a YOLOv8 blind-assistance system, a Gemini-powered task manager, and a stock tracker built during his CodeAlpha internship. Want details on a specific one?";
+    
+    // Stack & Skills
+    if(/stack|tech|skill|language/.test(t))
+      return "Arun's stack spans Python, Java, and SQL for core dev; MySQL for databases; Gemini API, YOLOv8, and computer vision for AI; and HTML/CSS for responsive frontend design. Check the 'Skills' grid for more!";
+    
+    // Education & Credentials
+    if(/education|college|degree|university|study|cgpa/.test(t))
+      return "Arun is currently pursuing his B.E. in Computer Science & Engineering at K. Ramakrishnan College of Engineering (2024–2028). He's doing great academically with an 8.04 CGPA! 🎓";
+    if(/certificat|hackerrank|nptel|rank|credential|award/.test(t))
+      return "He holds an NPTEL Elite Certification in Cloud Computing (IIT Kharagpur) and a HackerRank Python Programming Certification where he reached a Global Rank of 2483! 🏆";
+    
+    // Location
+    if(/location|where|live|city|country/.test(t))
+      return "Arun is based in Trichy, Tamil Nadu, India. 📍";
+      
+    // Social & Professional Links
+    if(/linkedin|connect|network/.test(t))
+      return "You can view his full professional history and network on LinkedIn! Just click the blue LinkedIn icon button in the Hero section or use the link at the bottom of the page.";
+    if(/github|repo|code/.test(t))
+      return "You can check out his open-source code and project repositories on his GitHub profile (iamarunsarvesh12). The link is available in the Contact section below.";
+      
+    // Availability & Contact
+    if(/hire|available|job|intern|freelance/.test(t))
+      return "As a full-time CS student graduating in 2028, he is highly interested in internships, hackathons, and AI-driven collaborations. Use the contact form to reach out to him directly!";
+    if(/contact|email|reach|phone|number/.test(t))
+      return "You can reach Arun via email at iamarunsarvesh@gmail.com, call him at +91 86677 94520, or simply fill out the contact form on this page.";
+      
+    // General
+    if(/hi|hello|hey|sup|yo/.test(t))
+      return "Hey there! 👋 What would you like to explore? You can ask about Arun's projects, his CGPA, tech stack, or LinkedIn profile.";
+    if(/who are you|nova|bot/.test(t))
+      return "I'm Nova, a custom-built rule-based assistant designed specifically to help you navigate Arun's portfolio. No heavy LLM needed—just clean logic!";
+      
+    return "I might not have the answer to that specific phrasing! Try asking me about Arun's projects, education, HackerRank score, tech stack, or how to reach him.";
+  }
+
+  chatForm.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const val = chatInput.value.trim();
+    if(!val) return;
+    addMsg(val, 'user');
+    chatInput.value = '';
+    setTimeout(()=> addMsg(respond(val), 'bot'), 400);
+  });
+
+  chatQuick.addEventListener('click', (e)=>{
+    if(e.target.tagName !== 'BUTTON') return;
+    const q = e.target.dataset.q;
+    const labels = {projects:'Tell me about your projects', stack:'What is your tech stack?', education:'Where do you study?', linkedin:'Let\'s connect on LinkedIn'};
+    addMsg(labels[q], 'user');
+    setTimeout(()=> addMsg(respond(q), 'bot'), 400);
+  });
+</script>
+
+</body>
+</html>
